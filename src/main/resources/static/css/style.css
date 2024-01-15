@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+a, a:hover {text-decoration:none; color:#000;}
+
+header {height:80px;}
+.contents {min-height:500px;}
+
+.sign-up-box {width:550px; box-shadow:5px 5px 5px 5px #BDC0C0;}
+.sign-up-subject {font-weight:bold;}
+
+.shadow-box {width:550px; margin-top:20px; box-shadow:5px 5px 5px 5px #BDC0C0;}
+.login-box {width:400px;}
+
+.contents-box {width:650px;}
+.head{height:30px;}
+#inputArea {height:100px;}
+#content {height:80px;}
+
+header, .sign-up-box, .shadow-box, .head {background-color:#ebebeb;}
+
+#writeTextArea {height:100px;}
+
+.comment-input {width:565px;}
+#login-section{width: 600px;}
