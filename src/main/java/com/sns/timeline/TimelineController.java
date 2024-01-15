@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sns.post.bo.PostBO;
-import com.sns.post.domain.Post;
+import com.sns.post.entity.PostEntity;
 
 @RequestMapping("/timeline")
 @Controller
@@ -21,7 +21,7 @@ public class TimelineController {
 	@GetMapping("/list-view")
 	public String listView (Model model) {
 		
-		List<Post> posts = postBO.getPostList();
+		List<PostEntity> posts = postBO.getPostList();
 		
 		model.addAttribute("viewName", "timeline/timeline");
 		model.addAttribute("isLoggedIn", true);

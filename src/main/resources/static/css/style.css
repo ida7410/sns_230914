@@ -22,3 +22,6 @@ header, .sign-up-box, .shadow-box, .head {background-color:#ebebeb;}
 
 .comment-input {width:565px;}
 #login-section{width: 600px;}
+
+.login-box {width:250px;}
+.input-group-text {width:50px;}
