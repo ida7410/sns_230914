@@ -18,7 +18,7 @@ public class TimelineController {
 	@Autowired
 	private PostBO postBO;
 	
-	@GetMapping("/list-view")
+	@GetMapping("/timeline-view")
 	public String listView (Model model) {
 		
 		List<PostEntity> posts = postBO.getPostList();

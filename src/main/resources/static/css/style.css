@@ -13,10 +13,9 @@ header {height:80px;}
 
 .contents-box {width:650px;}
 .head{height:30px;}
-#inputArea {height:100px;}
 #content {height:80px;}
 
-header, .sign-up-box, .shadow-box, .head {background-color:#ebebeb;}
+header, .sign-up-box, .shadow-box, .head, #addCommentBtn {background-color:#ebebeb;}
 
 #writeTextArea {height:100px;}
 
