@@ -8,7 +8,7 @@ public interface PostMapper {
 	
 	public void insertPost(
 			@Param("userId") int userId,
-			@Param("imagePath") String imagePath,
-			@Param("content") String content);
+			@Param("content") String content,
+			@Param("imagePath") String imagePath);
 	
 }

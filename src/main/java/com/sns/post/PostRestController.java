@@ -1,6 +1,7 @@
 package com.sns.post;
 
 import java.util.HashMap;
+
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +25,15 @@ public class PostRestController {
 	@PostMapping("/create")
 	public Map<String, Object> create(
 			@RequestParam("file") MultipartFile file,
-			@RequestParam(value = "content") String content,
+			@RequestParam(value = "content", required = false) String content,
 			HttpSession session) {
 		
 		// userId + loginCheck
 		int userId = (int)session.getAttribute("userId");
-		String id = (String)session.getAttribute("userLoginId");
+		String userLoginId = (String)session.getAttribute("userLoginId");
 		
 		// DB insert
+		postBO.addPost(userId, userLoginId, file, content);
 		
 		// response
 		Map<String, Object> result = new HashMap<>();

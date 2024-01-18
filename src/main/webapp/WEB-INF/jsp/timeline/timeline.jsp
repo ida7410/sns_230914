@@ -32,7 +32,7 @@
 		</div>
 			
 		<div class="image">
-			<img src="/static/img/man.jpg" alt="img" width="420" height="420">
+			<img src="${post.imagePath}" alt="img" class="w-100">
 		</div>
 		
 		<div class="likes d-flex align-items-center my-2 ml-3">
@@ -60,9 +60,9 @@
 		<hr class="mb-0">
 		
 		<div class="input-group">
-			<input type="text" class="border-0 form-control" placeholder="댓글 달기">
-			<div class="input-group-append">
-				<button type="button" id="addCommentBtn" class="btn">
+			<input type="text" class="border-0 form-control comment" placeholder="댓글 달기">
+			<div class="input-group-append addCommentBox">
+				<button type="button" class="btn addCommentBtn" value="${post.id}">
 					<small>게시</small>
 				</button>
 			</div>		
@@ -145,6 +145,34 @@
 					alert("포스트에 실패했습니다. 관리자에게 문의해주세요.");
 				}
 			});
-		})
-	})
+		});
+		
+		$(".addCommentBtn").on("click", function() {
+			let content = $(this).parent().prev().val();
+			let postId = $(this).val();
+			
+			if (!content) {
+				alert("댓글을 입력해주세요.");
+				return;
+			}
+			
+			$.ajax({
+				type:"post"
+				, url:"/comment/create"
+				, data:{"content":content, "postId":postId}
+				
+				, success:function(data) {
+					if (data.code == 200) {
+						alert("성공");
+					}
+					else {
+						alert(data.error_message);
+					}
+				}
+				, error:function(request, status, error) {
+					alert("포스트에 실패했습니다. 관리자에게 문의해주세요.");
+				}
+			});
+		});
+	});
 </script>

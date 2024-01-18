@@ -24,7 +24,7 @@ public class PostBO {
 	private FileManagerService fileManagerService;
 	
 	public List<PostEntity> getPostList() {
-		return postRepository.findAll();
+		return postRepository.findAllByOrderByIdDesc();
 	}
 	
 	public void addPost(int userId, String userLoginId, MultipartFile file, String content) {
@@ -35,6 +35,6 @@ public class PostBO {
 			imagePath = fileManagerService.saveFile(userLoginId, file);
 		}
 		
-		postMapper.insertPost(userId, imagePath, content);
+		postMapper.insertPost(userId, content, imagePath);
 	}
 }

@@ -24,7 +24,6 @@ public class TimelineController {
 		List<PostEntity> posts = postBO.getPostList();
 		
 		model.addAttribute("viewName", "timeline/timeline");
-		model.addAttribute("isLoggedIn", true);
 		model.addAttribute("posts", posts);
 		return "template/layout";
 	}

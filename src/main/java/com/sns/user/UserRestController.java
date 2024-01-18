@@ -106,7 +106,7 @@ public class UserRestController {
 		if (userEntity != null) { // login succeeded
 			HttpSession session = request.getSession();
 			session.setAttribute("userId", userEntity.getId());
-			session.setAttribute("userLoginId", (String)userEntity.getLoginId());
+			session.setAttribute("userLoginId", userEntity.getLoginId());
 			session.setAttribute("userName", userEntity.getName());
 			session.setAttribute("userProfileImagePath", userEntity.getProfileImagePath());
 			

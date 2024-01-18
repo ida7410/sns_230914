@@ -16,12 +16,12 @@
 
 </head>
 <body>
-	<div id="wrap" class="container">
+	<div id="wrap">
 		<header>
 			<jsp:include page="../include/header.jsp" />
 		</header>
 
-		<section class="contents bg-warning d-flex justify-content-center p-5">
+		<section class="contents d-flex justify-content-center p-5">
 			<jsp:include page="../${viewName}.jsp" />
 		</section>
 	</div>
