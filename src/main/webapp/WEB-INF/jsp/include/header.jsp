@@ -10,14 +10,12 @@
 	
 	<%-- login info --%>
 	<div>
-	<c:choose>
-		<c:when test="${not empty userName}">
-			<span class="mr-2"><b>${userName}님 안녕하세요</b></span>
-			<a href="/user/sign-out"><u>로그아웃</u></a>		
-		</c:when>
-		<c:otherwise>
-			<a href="/user/sign-in-view"><u>로그인</u></a>		
-		</c:otherwise>
-	</c:choose>
+	<c:if test="${not empty userName}">
+		<span class="mr-2"><b>${userName}님 안녕하세요</b></span>
+		<a href="/user/sign-out"><u>로그아웃</u></a>		
+	</c:if>
+	<c:if test="${empty userName}">
+		<a href="/user/sign-in-view"><u>로그인</u></a>
+	</c:if>
 	</div>
 </div>
