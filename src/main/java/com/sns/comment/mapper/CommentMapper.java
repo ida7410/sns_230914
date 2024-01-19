@@ -10,6 +10,8 @@ import com.sns.comment.domain.Comment;
 @Mapper
 public interface CommentMapper {
 	
+	public List<Comment> selectCommentList();
+	
 	public List<Comment> selectCommentListByPostId(int postId);
 	
 	public void insertComment(

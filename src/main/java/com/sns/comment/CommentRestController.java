@@ -22,18 +22,12 @@ public class CommentRestController {
 	
 	@PostMapping("/create")
 	public Map<String, Object> create(
-			@RequestParam("content") String content,
+			@RequestParam("userId") int userId,
 			@RequestParam("postId") int postId,
-			HttpSession session) {
+			@RequestParam("content") String content) {
 		
 		Map<String, Object> result = new HashMap<>();
 
-		// user id
-		Integer userId = (Integer)session.getAttribute("userId");
-		if (userId == null) {
-			result.put("code", 300);
-			result.put("error_message", "댓글을 달기 위해선 로그인해주세요.");
-		}
 		
 		// DB insert
 		commentBO.addComment(userId, postId, content);

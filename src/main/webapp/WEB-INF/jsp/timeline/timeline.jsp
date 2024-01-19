@@ -24,51 +24,7 @@
 	</div>
 	</c:if>
 	
-	<c:forEach items="${posts}" var="post">
-	<div class="card mb-5 border">
-		<div class="d-flex align-items-center p-2 justify-content-between">
-			<span class="font-weight-bold">${post.userId}</span>
-			<a href=""><img src="/static/img/more-icon.png" width="20"></a>
-		</div>
-			
-		<div class="image">
-			<img src="${post.imagePath}" alt="img" class="w-100">
-		</div>
-		
-		<div class="likes d-flex align-items-center my-2 ml-3">
-			<a href="" class="like-btn d-flex align-items-center">
-				<img src="/static/img/empty-heart-icon.png" alt="like" width="17" height="17">
-			</a>
-			<span class="ml-2">좋아요 11개</span>
-		</div>
-		
-		<div class="postContent my-1 ml-3">
-			${post.content}
-		</div>
-		
-		<hr>
-		
-		<div class="comment-box ml-3">
-			<div class="mb-2">댓글</div>
-			<div class="comment">
-				<b>hagulu : </b>
-				<span>재밌었겠네</span>
-				<a href=""><img src="/static/img/x-icon.png" width="10" class="ml-1"></a>
-			</div>
-		</div>
-		
-		<hr class="mb-0">
-		
-		<div class="input-group">
-			<input type="text" class="border-0 form-control comment" placeholder="댓글 달기">
-			<div class="input-group-append addCommentBox">
-				<button type="button" class="btn addCommentBtn" value="${post.id}">
-					<small>게시</small>
-				</button>
-			</div>		
-		</div>
-	</div>
-	</c:forEach>
+	<jsp:include page="../cardViewList/cardViewList.jsp" />
 </div>
 
 
@@ -148,9 +104,16 @@
 		});
 		
 		$(".addCommentBtn").on("click", function() {
+			let userId = $(this).data("user-id");
+			let postId = $(this).data("post-id");
 			let content = $(this).parent().prev().val();
-			let postId = $(this).val();
+			// let content = $(this).parent().siblings("input").val();
 			
+			if (!userId) {
+				alert("댓글을 달기 위해선 로그인해야 합니다.");
+				location.href = "/user/sign-in-view";
+				return;
+			}
 			if (!content) {
 				alert("댓글을 입력해주세요.");
 				return;
@@ -159,11 +122,12 @@
 			$.ajax({
 				type:"post"
 				, url:"/comment/create"
-				, data:{"content":content, "postId":postId}
+				, data:{"userId":userId, "postId":postId, "content":content}
 				
 				, success:function(data) {
 					if (data.code == 200) {
 						alert("성공");
+						location.href = "/timeline/list-view";
 					}
 					else {
 						alert(data.error_message);

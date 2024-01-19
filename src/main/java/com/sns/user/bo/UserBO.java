@@ -1,5 +1,7 @@
 package com.sns.user.bo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,10 @@ public class UserBO {
 	@Autowired
 	private UserRepository userRepository;
 	
+	public List<UserEntity> getUserList() {
+		return userRepository.findAll();
+	}
+	
 	/**
 	 * Get UserEntity using loginId
 	 * @param loginId
@@ -19,6 +25,11 @@ public class UserBO {
 	 */
 	public UserEntity getUserByLoginId(String loginId) {
 		return userRepository.findByLoginId(loginId);
+	}
+	
+
+	public UserEntity getUserByLoginIdPassword(String loginId, String password) {
+		return userRepository.findByLoginIdAndPassword(loginId, password);
 	}
 	
 	/**
@@ -40,11 +51,6 @@ public class UserBO {
 				);
 		
 		return userEntity == null ? null : userEntity.getId();
-	}
-	
-	
-	public UserEntity getUserByLoginIdPassword(String loginId, String password) {
-		return userRepository.findByLoginIdAndPassword(loginId, password);
 	}
 	
 }

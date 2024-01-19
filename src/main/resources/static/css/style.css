@@ -24,3 +24,9 @@ header, .sign-up-box, .shadow-box, .head, #addCommentBtn {background-color:#ebeb
 
 .login-box {width:250px;}
 .input-group-text {width:50px;}
+
+.profile-box {height:200px;}
+.profileBtn {padding-top:5px; padding-bottom:5px; font-size:80%;}
+
+.update-profile-box {width:550px;}
+.update-profile-subject {font-weight:bold;}

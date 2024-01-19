@@ -27,6 +27,10 @@ public class PostBO {
 		return postRepository.findAllByOrderByIdDesc();
 	}
 	
+	public List<PostEntity> getPostListByUserId(int userId) {
+		return postRepository.findAllByUserId(userId);
+	}
+	
 	public void addPost(int userId, String userLoginId, MultipartFile file, String content) {
 		String imagePath = null;
 		

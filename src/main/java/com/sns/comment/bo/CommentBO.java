@@ -14,6 +14,10 @@ public class CommentBO {
 	@Autowired
 	private CommentMapper commentMapper;
 	
+	public List<Comment> getCommentList() {
+		return commentMapper.selectCommentList();
+	}
+	
 	public List<Comment> getCommentListByPostId(int postId) {
 		return commentMapper.selectCommentListByPostId(postId);
 	}

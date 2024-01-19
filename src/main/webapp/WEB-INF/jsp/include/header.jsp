@@ -5,7 +5,9 @@
 <div class="d-flex justify-content-between align-items-center h-100 p-4">
 	<%--logo --%>
 	<div>
-		<h3 class="font-weight-bold">Marondalgram</h3>
+		<h3 class="font-weight-bold">
+			<a href="/timeline/list-view">Marondalgram</a>
+		</h3>
 	</div>
 	
 	<%-- login info --%>
