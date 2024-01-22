@@ -27,27 +27,97 @@
 		<div class="comment-box ml-3">
 			<div class="mb-2">댓글</div>
 
-			<%-- <c:forEach items="${comments}" var="comment">
-			<c:if test="${comment.postId == post.id}"> --%>
+			<c:forEach items="${cardView.commentList}" var="commentView">
 			<div class="comment">
-				<b>${comment.userId} : </b> <span>${comment.content}</span>
-				<a href=""><img src="/static/img/x-icon.png" width="10" class="ml-1"></a>
+				<b>${commentView.user.loginId} : </b> <span>${commentView.comment.content}</span>
+				<c:if test="${commentView.user.id == userId}">
+				<a href="/comment/delete" class="comment-del-btn" data-comment-id="${commentView.comment.id}">
+					<img src="/static/img/x-icon.png" width="10" class="ml-1">
+				</a>
+				</c:if>
 			</div>
-			<%-- </c:if>
-			</c:forEach> --%>
+			</c:forEach>
 		</div>
 
 		<hr class="mb-0">
 
 		<div class="input-group">
-			<input type="text" class="border-0 form-control comment"
+			<input type="text" class="border-0 form-control content"
 				placeholder="댓글 달기">
-			<div class="input-group-append addCommentBox">
-				<button type="button" class="btn addCommentBtn"
-					data-post-id="${post.id}" data-user-id="${userId}">
+			<div class="input-group-append add-comment-box">
+				<button type="button" class="btn add-comment-btn"
+					data-post-id="${cardView.post.id}" data-user-id="${userId}">
 					<small>게시</small>
 				</button>
 			</div>
 		</div>
 	</div>
 </c:forEach>
+
+
+<script>
+	$(document).ready(function() {
+
+		$(".add-comment-btn").on("click", function() {
+			let userId = $(this).data("user-id");
+			let postId = $(this).data("post-id");
+			let content = $(this).parent().prev().val();
+			// let content = $(this).parent().siblings("input").val();
+			
+			if (!userId) {
+				alert("댓글을 달기 위해선 로그인해야 합니다.");
+				location.href = "/user/sign-in-view";
+				return;
+			}
+			if (!content) {
+				alert("댓글을 입력해주세요.");
+				return;
+			}
+			
+			$.ajax({
+				type:"post"
+				, url:"/comment/create"
+				, data:{"userId":userId, "postId":postId, "content":content}
+				
+				, success:function(data) {
+					if (data.code == 200) {
+						alert("성공");
+						location.reload();
+					}
+					else {
+						alert(data.error_message);
+					}
+				}
+				, error:function(request, status, error) {
+					alert("포스트에 실패했습니다. 관리자에게 문의해주세요.");
+				}
+			});
+		});
+		
+		$(".comment-del-btn").on("click", function(e) {
+			e.preventDefault();
+			
+			let commentId = $(this).data("comment-id");
+			let url = $(this).attr("href");
+			
+			$.ajax({
+				type:"delete"
+				,url:url
+				,data:{"commentId":commentId}
+				
+				,success:function(data) {
+					if (data.code == 200) {
+						alert("댓글을 삭제했습니다.");
+						location.reload();
+					}
+					else {
+						alert(error_message);
+					}
+				}
+				,error:function(request, status, error) {
+					alert("댓글 삭제에 실패했습니다. 관리자에게 문의해주세요.");
+				}
+			});
+		});
+	});
+</script>

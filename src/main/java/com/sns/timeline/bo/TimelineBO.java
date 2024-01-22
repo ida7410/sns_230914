@@ -1,14 +1,13 @@
 package com.sns.timeline.bo;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sns.comment.bo.CommentBO;
+import com.sns.comment.domain.CommentView;
 import com.sns.post.bo.PostBO;
 import com.sns.post.entity.PostEntity;
 import com.sns.timeline.domain.CardView;
@@ -45,6 +44,8 @@ public class TimelineBO {
 			cardView.setUser(user);
 			
 			// comments
+			List<CommentView> commentList = commentBO.generateCommentViewListByPostId(post.getId());
+			cardView.setCommentList(commentList);
 			
 			// count of like
 			

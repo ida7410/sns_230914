@@ -5,7 +5,7 @@
 <div class="col-5 p-0">
 	
 	<c:if test="${not empty userId}">
-	<div id="inputArea" class="rounded bg-white mb-5">
+	<div id="input-area" class="rounded bg-white mb-5">
 		<textarea id="content" class="form-control border-0" placeholder="내용을 입력하세요"></textarea>
 		<div class="d-flex justify-content-between">
 			<div class="file-upload d-flex">
@@ -19,7 +19,7 @@
 				<div id="fileName" class="ml-2"></div>
 			</div>
 			
-			<button type="button" id="writeBtn" class="btn btn-info p-1 px-2"><small>게시</small></button>
+			<button type="button" id="write-btn" class="btn btn-info p-1 px-2"><small>게시</small></button>
 		</div>
 	</div>
 	</c:if>
@@ -59,7 +59,7 @@
 			$("#fileName").text(fileName);
 		})
 		
-		$("#writeBtn").on("click", function() {
+		$("#write-btn").on("click", function() {
 			let fileName = $("#file").val();
 			let content = $("#content").val();
 			
@@ -103,40 +103,5 @@
 			});
 		});
 		
-		$(".addCommentBtn").on("click", function() {
-			let userId = $(this).data("user-id");
-			let postId = $(this).data("post-id");
-			let content = $(this).parent().prev().val();
-			// let content = $(this).parent().siblings("input").val();
-			
-			if (!userId) {
-				alert("댓글을 달기 위해선 로그인해야 합니다.");
-				location.href = "/user/sign-in-view";
-				return;
-			}
-			if (!content) {
-				alert("댓글을 입력해주세요.");
-				return;
-			}
-			
-			$.ajax({
-				type:"post"
-				, url:"/comment/create"
-				, data:{"userId":userId, "postId":postId, "content":content}
-				
-				, success:function(data) {
-					if (data.code == 200) {
-						alert("성공");
-						location.href = "/timeline/list-view";
-					}
-					else {
-						alert(data.error_message);
-					}
-				}
-				, error:function(request, status, error) {
-					alert("포스트에 실패했습니다. 관리자에게 문의해주세요.");
-				}
-			});
-		});
 	});
 </script>
