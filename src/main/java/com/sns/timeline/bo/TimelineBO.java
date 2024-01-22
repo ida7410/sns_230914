@@ -33,23 +33,23 @@ public class TimelineBO {
 		// 글 목록 List<PostEntity>
 		List<PostEntity> postList = postBO.getPostList();
 		
-		// user 목록
-		List<UserEntity> userList = userBO.getUserList();
-		
-		Map<String, UserEntity> userMap = new HashMap<>();
-		for (UserEntity user : userList) {
-			userMap.put(user.getId() + "", user);
-		}
-		
-		
-		CardView cardView = new CardView();
 		for (PostEntity post : postList) {
+			// post 당 새로운 cardview 생성
+			CardView cardView = new CardView();
+			// add post into cardview
 			cardView.setPost(post);
-			cardView.setUser(userMap.get(post.getUserId() + ""));
 			
+			// post에 해당하는 userId
+			UserEntity user = userBO.getUserById(post.getUserId());
+			// add user into card view
+			cardView.setUser(user);
+			
+			// comments
+			
+			// count of like
+			
+			// add cardview into cardviewList
 			cardViewList.add(cardView);
-			
-			cardView = new CardView();
 		}
 
 		return cardViewList;

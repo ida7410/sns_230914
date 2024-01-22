@@ -18,6 +18,10 @@ public class UserBO {
 		return userRepository.findAll();
 	}
 	
+	public UserEntity getUserById(int id) {
+		return userRepository.findById(id).orElse(null);
+	}
+	
 	/**
 	 * Get UserEntity using loginId
 	 * @param loginId
