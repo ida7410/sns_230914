@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.sns.timeline.bo.TimelineBO;
 import com.sns.timeline.domain.CardView;
 
+import jakarta.servlet.http.HttpSession;
+
 @RequestMapping("/timeline")
 @Controller
 public class TimelineController {
@@ -19,7 +21,9 @@ public class TimelineController {
 	private TimelineBO timelineBO;
 	
 	@GetMapping("/list-view")
-	public String listView (Model model) {
+	public String listView (
+			HttpSession session,
+			Model model) {
 		
 		// 글 목록 조회
 //		List<PostEntity> posts = postBO.getPostList();
@@ -32,7 +36,9 @@ public class TimelineController {
 //			commentsList.add(comments);
 //		}
 		
-		List<CardView> cardViewList = timelineBO.generateCardViewList();
+		Integer userId = (Integer)session.getAttribute("userId");
+		
+		List<CardView> cardViewList = timelineBO.generateCardViewList(userId);
 		
 		model.addAttribute("viewName", "timeline/timeline");
 //		model.addAttribute("posts", posts);

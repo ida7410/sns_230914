@@ -28,15 +28,19 @@ public class PostRestController {
 			@RequestParam(value = "content", required = false) String content,
 			HttpSession session) {
 		
+		Map<String, Object> result = new HashMap<>();
 		// userId + loginCheck
-		int userId = (int)session.getAttribute("userId");
 		String userLoginId = (String)session.getAttribute("userLoginId");
+		Integer userId = (Integer) session.getAttribute("userId");
+		if (userId == null) {
+			result.put("code", 300);
+			result.put("error_message", "포스트하기 위해선 로그인해야 합니다.");
+		}
 		
 		// DB insert
 		postBO.addPost(userId, userLoginId, file, content);
 		
 		// response
-		Map<String, Object> result = new HashMap<>();
 		result.put("code", 200);
 		result.put("resutl", "success");
 		

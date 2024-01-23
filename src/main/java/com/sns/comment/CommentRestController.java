@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sns.comment.bo.CommentBO;
 
+import jakarta.servlet.http.HttpSession;
+
 @RequestMapping("/comment")
 @RestController
 public class CommentRestController {
@@ -26,7 +28,6 @@ public class CommentRestController {
 			@RequestParam("content") String content) {
 		
 		Map<String, Object> result = new HashMap<>();
-
 		
 		// DB insert
 		commentBO.addComment(userId, postId, content);

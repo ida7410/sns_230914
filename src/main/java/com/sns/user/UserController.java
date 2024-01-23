@@ -53,13 +53,17 @@ public class UserController {
 	@RequestMapping("/profile-view")
 	public String profileView(
 			@RequestParam("userId") String userId,
+			HttpSession session,
 			Model model) {
 		
 		// DB select
 		UserEntity user = userBO.getUserByLoginId(userId);
 		
+		// login
+		Integer loginUserId = (Integer)session.getAttribute("userId");
+		
 		// select timeline
-		List<CardView> cardViewList = timelineBO.generateCardViewListByUserId(user.getLoginId());
+		List<CardView> cardViewList = timelineBO.generateCardViewListByLoginUserIdProfileUserId(loginUserId, user.getId());
 		
 		model.addAttribute("viewName", "user/profile");
 		model.addAttribute("user", user);

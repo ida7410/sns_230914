@@ -14,10 +14,18 @@
 		</div>
 
 		<div class="likes d-flex align-items-center my-2 ml-3">
-			<a href="" class="like-btn d-flex align-items-center"> <img
-				src="/static/img/empty-heart-icon.png" alt="like" width="17"
-				height="17">
-			</a> <span class="ml-2">좋아요 11개</span>
+			<c:if test="${cardView.filledLike == true}">
+			<a href="/like/${cardView.post.id}" class="like-btn d-flex align-items-center">
+				<img src="/static/img/heart-icon.png" alt="like" width="17" height="17">
+			</a>				
+			</c:if>
+			
+			<c:if test="${cardView.filledLike == false}">
+			<a href="/like/${cardView.post.id}" class="like-btn d-flex align-items-center">
+				<img src="/static/img/empty-heart-icon.png" alt="like" width="17" height="17">
+			</a>
+			</c:if>
+			<span class="ml-2">좋아요 ${cardView.likeCount}개</span>
 		</div>
 
 		<div class="postContent my-1 ml-3">${cardView.post.content}</div>
@@ -45,8 +53,7 @@
 			<input type="text" class="border-0 form-control content"
 				placeholder="댓글 달기">
 			<div class="input-group-append add-comment-box">
-				<button type="button" class="btn add-comment-btn"
-					data-post-id="${cardView.post.id}" data-user-id="${userId}">
+				<button type="button" class="btn add-comment-btn" data-post-id="${cardView.post.id}" data-user-id="${userId}">
 					<small>게시</small>
 				</button>
 			</div>
@@ -116,6 +123,30 @@
 				}
 				,error:function(request, status, error) {
 					alert("댓글 삭제에 실패했습니다. 관리자에게 문의해주세요.");
+				}
+			});
+		});
+		
+		$(".like-btn").on("click", function(e) {
+			e.preventDefault();
+			let url = $(this).attr("href");
+			
+			$.ajax({
+				url:url
+				
+				,success:function(data) {
+					if (data.code == 200) {
+						location.reload();
+					}
+					else {
+						alert(data.error_message);
+						if (data.code == 300) {
+							location.href = "/user/sign-in-view";
+						}
+					}
+				}
+				,error:function(request, status, error) {
+					alert("좋아요에 실패했습니다. 관리자에게 문의해주세요.");
 				}
 			});
 		});
