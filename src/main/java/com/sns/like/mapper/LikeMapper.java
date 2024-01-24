@@ -16,11 +16,16 @@ public interface LikeMapper {
 			@Param("postId") int postId,
 			@Param("userId") int userId);
 	
-	public int selectLikeCountByPostId(int postId);
-
-	public int selectLikeCountByPostIdUserId(
+//	public int selectLikeCountByPostId(int postId);
+//
+//	public int selectLikeCountByPostIdUserId(
+//			@Param("postId") int postId,
+//			@Param("userId") int userId);
+	
+	// likeCount query 하나로 합치기
+	public int selectLikeCountByPostIdOrUserId(
 			@Param("postId") int postId,
-			@Param("userId") int userId);
+			@Param("userId") Integer userId);
 	
 	public void insertLike(
 			@Param("postId") int postId,
