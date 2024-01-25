@@ -9,6 +9,9 @@ import java.nio.file.Paths;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Component
 public class FileManagerService {
 	
@@ -43,5 +46,29 @@ public class FileManagerService {
 		// 파일 업로드가 성공했다면 웹 이미지 url path를 return
 		// /images/aaaa_13854324684/sun.png
 		return "/images/" + direcotryName + "/" + file.getOriginalFilename();
+	}
+	
+	public void deleteFile(String imagePath) {
+		imagePath = imagePath.replace("/images/", "");
+		Path path = Paths.get(FILE_UPLOAD_PATH + imagePath);
+		
+		if (Files.exists(path)) {
+			try {
+				Files.delete(path);
+			} catch (IOException e) {
+				log.info("[FileManagerService deleteFile] Failed to delete file. path:{}", path.toString());
+				e.printStackTrace();
+			}
+			
+			path = path.getParent();
+			if (Files.exists(path)) {
+				try {
+					Files.delete(path);
+				} catch (IOException e) {
+					log.info("[FileManagerService deleteFile] Failed to delete diretory. path:{}", path.toString());
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 }

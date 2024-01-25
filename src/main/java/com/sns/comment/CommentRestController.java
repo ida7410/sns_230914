@@ -45,7 +45,7 @@ public class CommentRestController {
 		Map<String, Object> result = new HashMap<>();
 		
 		// DB delete
-		commentBO.deleteComment(id);
+		commentBO.deleteCommentById(id);
 		
 		result.put("code", 200);
 		result.put("result", "success");

@@ -33,6 +33,6 @@ public interface LikeMapper {
 	
 	public void deleteLike(
 			@Param("postId") int postId,
-			@Param("userId") int userId);
-
+			@Param("userId") Integer userId);
+	
 }
