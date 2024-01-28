@@ -1,5 +1,7 @@
 package com.sns.like.bo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +15,6 @@ public class LikeBO {
 	private LikeMapper likeMapper;
 	
 	public void likeToggle(int postId, int userId) {
-		Like like = likeMapper.selectLikeByPostIdUserId(postId, userId);
 		int count = likeMapper.selectLikeCountByPostIdOrUserId(postId, userId);
 		
 		if (count == 0) {
@@ -22,6 +23,14 @@ public class LikeBO {
 		else {
 			likeMapper.deleteLike(postId, userId);
 		}
+	}
+
+	public Like getLikeByPostIdUserId(int postId, int userId) {
+		return likeMapper.selectLikeByPostIdUserId(postId, userId);
+	}
+	
+	public List<Like> getLikeByUserId(int userId) {
+		return likeMapper.selectLikeListByUserId(userId);
 	}
 	
 	public int getLikeCountByPostId(int postId) {
@@ -37,10 +46,6 @@ public class LikeBO {
 		return likeCount > 0;
 	}
 
-	public Like getLikeByPostIdUserId(int postId, int userId) {
-		return likeMapper.selectLikeByPostIdUserId(postId, userId);
-	}
-	
 	public void deleteLikeByPostId(int postId) {
 		likeMapper.deleteLike(postId, null);
 	}

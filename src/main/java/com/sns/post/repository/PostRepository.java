@@ -11,6 +11,6 @@ import com.sns.post.entity.PostEntity;
 public interface PostRepository extends JpaRepository<PostEntity, Integer> {
 	
 	public List<PostEntity> findAllByOrderByIdDesc();
-	public List<PostEntity> findAllByUserId(int userId);
+	public List<PostEntity> findAllByUserIdOrderByIdDesc(int userId);
 	
 }

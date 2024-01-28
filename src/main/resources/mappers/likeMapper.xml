@@ -12,6 +12,17 @@
 			`like`
 	</select>
 	
+	<select id="selectLikeListByUserId" parameterType="int" resultType="com.sns.like.domain.Like">
+		SELECT
+			`postId`
+			,`userId`
+			,`createdAt`
+		FROM
+			`like`
+		WHERE
+			`userId` = #{userId}
+	</select>
+	
 	<select id="selectLikeByPostIdUserId" parameterType="map" resultType="com.sns.like.domain.Like">
 		SELECT
 			`postId`

@@ -34,12 +34,16 @@ public class PostBO {
 	@Autowired
 	private FileManagerService fileManagerService;
 	
+	public PostEntity getPostById(int id) {
+		return postRepository.findById(id).orElse(null);
+	}
+	
 	public List<PostEntity> getPostList() {
 		return postRepository.findAllByOrderByIdDesc();
 	}
 	
 	public List<PostEntity> getPostListByUserId(int userId) {
-		return postRepository.findAllByUserId(userId);
+		return postRepository.findAllByUserIdOrderByIdDesc(userId);
 	}
 	
 	public void addPost(int userId, String userLoginId, MultipartFile file, String content) {

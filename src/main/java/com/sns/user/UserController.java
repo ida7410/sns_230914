@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -68,6 +69,29 @@ public class UserController {
 		model.addAttribute("viewName", "user/profile");
 		model.addAttribute("user", user);
 		model.addAttribute("cardViewList", cardViewList);
+		return "template/layout";
+	}
+	
+	@RequestMapping("/{profileUserLoginId}/{type}")
+	public String profileViewType(
+			@PathVariable("profileUserLoginId") String profileUserLoginId,
+			@PathVariable("type") String type,
+			HttpSession session,
+			Model model) {
+		
+		// select profile user
+		UserEntity user = userBO.getUserByLoginId(profileUserLoginId);
+		
+		// get user id
+		Integer loginUserId = (Integer) session.getAttribute("userId");
+		
+		// get cards
+		List<CardView> cardViewList = timelineBO.generateCardViewList(profileUserLoginId, loginUserId, type);
+		
+		model.addAttribute("viewName", "user/profile");
+		model.addAttribute("user", user);
+		model.addAttribute("cardViewList", cardViewList);
+		
 		return "template/layout";
 	}
 	

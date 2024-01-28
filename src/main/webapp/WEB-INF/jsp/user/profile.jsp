@@ -36,5 +36,33 @@
 		</div>
 	</div>
 	
+	<nav class="menu">
+		<ul class="nav text-center w-100">
+			<li id="show-posts" class="nav-item">
+				<a href="/user/${user.loginId}/posts" class="nav-link">포스트</a>
+			</li>
+			<li id="show-likes" class="nav-item">
+				<a href="/user/${user.loginId}/likes" class="nav-link">좋아요</a>
+			</li>
+		</ul>
+	</nav>
+	
 	<jsp:include page="../cardViewList/cardViewList.jsp" />
 </div>
+
+
+<script>
+	$(document).ready(function() {
+		$("#show-posts").on("click", function() {
+			let url = $(this).attr("href");
+			
+			$.ajax({
+				url:url
+				
+				,error:function(request, status, error) {
+					alert("오류가 발생했습니다. 관리자에게 문의해주세요.")
+				}
+			});
+		});
+	});
+</script>

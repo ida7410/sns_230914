@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sns.comment.bo.CommentBO;
 
-import jakarta.servlet.http.HttpSession;
-
 @RequestMapping("/comment")
 @RestController
 public class CommentRestController {

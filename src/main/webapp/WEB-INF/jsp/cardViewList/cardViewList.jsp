@@ -5,7 +5,7 @@
 <c:forEach items="${cardViewList}" var="card">
 	<div class="card mb-5 border">
 		<div class="d-flex align-items-center p-2 justify-content-between">
-			<a href="/user/profile-view?userId=${card.user.loginId}" class="font-weight-bold">${card.user.loginId}</a>
+			<a href="/user/${card.user.loginId}/posts" class="font-weight-bold">${card.user.loginId}</a>
 			
 			<!-- 로그인한 사람이 한 포스트에만 ... 노출 -->
 			<c:if test="${userId eq card.user.id}">

@@ -12,6 +12,8 @@ public interface LikeMapper {
 	
 	public List<Like> selectLikeList();
 	
+	public List<Like> selectLikeListByUserId(int userId);
+	
 	public Like selectLikeByPostIdUserId(
 			@Param("postId") int postId,
 			@Param("userId") int userId);

@@ -56,7 +56,6 @@ public class PostRestController {
 		Map<String, Object> result = new HashMap<>();
 
 		Integer userId = (Integer) session.getAttribute("userId");
-		String userLoginId = (String) session.getAttribute("userLoginId");
 		if (userId == null) {
 			result.put("code", 300);
 			result.put("error_message", "글을 삭제하려면 로그인해주세요.");

@@ -16,8 +16,6 @@ import com.sns.timeline.domain.CardView;
 import com.sns.user.bo.UserBO;
 import com.sns.user.entity.UserEntity;
 
-import jakarta.servlet.http.HttpSession;
-
 @Service
 public class TimelineBO {
 	
@@ -113,4 +111,59 @@ public class TimelineBO {
 		return cardViewList;
 	}
 	
+	
+	public List<CardView> generateCardViewList(String profileUserLoginId, Integer loginUserId, String type) {
+		List<CardView> cardViewList = new ArrayList<>();
+
+		// user 목록
+		UserEntity profileUser = userBO.getUserByLoginId(profileUserLoginId);
+		int profileUserId = profileUser.getId();
+		
+		// 글 목록 List<PostEntity>
+		List<PostEntity> postList = new ArrayList<>();
+		if (type.equals("posts")) {
+			postList = postBO.getPostListByUserId(profileUserId);
+		}
+		else if (type.equals("likes")) {
+			List<Like> likeList = likeBO.getLikeByUserId(profileUserId);
+			
+			for (Like like : likeList) {
+				PostEntity post = postBO.getPostById(like.getPostId());
+				postList.add(post);
+			}
+		}
+		
+		
+		for (PostEntity post : postList) {
+			// post 당 새로운 cardview 생성
+			CardView cardView = new CardView();
+			// add post into cardview
+			cardView.setPost(post);
+			
+			// post에 해당하는 userId
+			cardView.setUser(profileUser);
+			
+			// comments
+			List<CommentView> commentList = commentBO.generateCommentViewListByPostId(post.getId());
+			cardView.setCommentList(commentList);
+			
+			// count of like
+			int likeCount = likeBO.getLikeCountByPostId(post.getId());
+			cardView.setLikeCount(likeCount);
+			
+			// 로그인된 사람이 좋아요를 했는지 여부 (!!!비로그인 경우도 고려해야 함!!!)
+			
+			if (loginUserId == null || likeBO.getLikeByPostIdUserId(post.getId(), loginUserId) == null) {
+				cardView.setFilledLike(false);
+			}
+			else {				
+				cardView.setFilledLike(true);
+			}
+			
+			// add cardview into cardviewList
+			cardViewList.add(cardView);
+		}
+		
+		return cardViewList;
+	}
 }
