@@ -41,6 +41,11 @@ public class UserController {
 	}
 	
 	// 로그아웃
+	/**
+	 * 로그아웃
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/sign-out")
 	public String signOut(HttpSession session) {
 		session.removeAttribute("userId");
